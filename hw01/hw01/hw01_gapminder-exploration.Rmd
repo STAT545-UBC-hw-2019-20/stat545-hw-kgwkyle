@@ -1,0 +1,51 @@
+---
+title: "Gapminder Exploration: Poland"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+    number_sections: yes
+    theme: cerulean
+---
+
+```{r load, warning = FALSE, echo = FALSE}
+library(gapminder)
+library(DT)
+```
+
+## Global Statistics
+
+Life expectancy, population, and GDP-per-capita can be found for each country in the table below:
+
+```{r, echo = FALSE}
+datatable(gapminder)
+```
+
+## Country Statistics: Poland
+
+Let us look into one nation in more detail, such as Poland. We can search for Poland in the above datatable, or we can calculate some statistics from Poland without using the datatable.
+
+Let us find the mean population for Poland between 1952 and 2007.
+
+```{r, echo = FALSE}
+mean(gapminder[which(gapminder$country == "Poland"),]$pop)
+
+```
+
+Now, let us find the minimum and maximum populations for Poland during this time.
+
+```{r, echo = FALSE}
+min(gapminder[which(gapminder$country == "Poland"),]$pop)
+max(gapminder[which(gapminder$country == "Poland"),]$pop)
+```
+
+Note how the mean is much closer to the maximum than the minimum.
+
+Let us see how the population has changed over time
+
+```{r, echo = FALSE}
+dat = (gapminder[which(gapminder$country == "Poland"),])
+plot(dat$pop ~ dat$year, xlab = "Year", ylab = "Population")
+```
+
+We can see why the mean is closer to the maximum based on the scatter plot above! The population steadily increased up until the 1990s, where the population began to plateau. This plateau in the population has inflated the mean value to be closer to the 1990s population values.
