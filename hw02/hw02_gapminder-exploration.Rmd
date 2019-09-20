@@ -1,0 +1,63 @@
+---
+title: 'Assignment 2: Gapminder Exploration'
+author: "Kyle Wlodarczyk"
+date: "September 19, 2019"
+output: 
+  html_document:
+    df_print: paged
+    toc: yes
+    number_sections: yes
+    theme: cerulean
+
+---
+
+```{r, warning = FALSE, echo = FALSE}
+library(gapminder)
+library(tidyverse)
+
+```
+
+# Exercise 1: Basic dplyr
+
+## Exercise 1.1
+
+```{r, echo = FALSE}
+
+```
+
+## Exercise 1.2
+
+```{r, echo = FALSE}
+
+```
+
+## Exercise 1.3
+
+```{r, echo = FALSE}
+
+```
+
+## Exercise 1.4
+
+```{r, echo = FALSE}
+
+```
+
+## Exercise 1.5
+
+```{r, echo = FALSE}
+
+```
+
+# Exercise 2: Explore individual variables with dplyr
+
+```{r, echo = FALSE}
+
+```
+
+# Exercise 3: Explore various plot types
+
+```{r, echo = FALSE}
+
+```
+
