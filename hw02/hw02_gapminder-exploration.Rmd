@@ -31,6 +31,10 @@ gapminder %>%
 ## Exercise 1.2
 
 ```{r, echo = FALSE}
+gapminder %>%
+  filter(country == "Poland" | country == "Austria" | country == "Switzerland",
+         year >= 1970 & year < 1980) %>%
+  select(country, gdpPercap)
 
 ```
 
