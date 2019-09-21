@@ -14,6 +14,8 @@ output:
 ```{r, warning = FALSE, echo = FALSE}
 library(gapminder)
 library(tidyverse)
+library(scales)
+library(tsibble)
 
 ```
 
@@ -41,18 +43,31 @@ gapminder %>%
 ## Exercise 1.3
 
 ```{r, echo = FALSE}
-
+gapminder %>%
+  filter(lifeExp < diff(lifeExp, 1))
 ```
 
 ## Exercise 1.4
 
 ```{r, echo = FALSE}
-
+gapminder %>%
+  select(country, gdpPercap) %>%
+  arrange(desc(gdpPercap)) %>%
+  top_n(3, gdpPercap)
+  
+  
 ```
 
 ## Exercise 1.5
 
 ```{r, echo = FALSE}
+gapminder %>%
+  filter(country == "Canada") %>%
+  ggplot(aes(lifeExp, gdpPercap)) +
+  geom_point(alpha = 1) + 
+  scale_y_log10("GDP per Capita") +
+  xlab("Life Expectancy") +
+  theme_bw()
 
 ```
 
