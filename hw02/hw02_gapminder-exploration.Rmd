@@ -6,7 +6,6 @@ output:
   html_document:
     df_print: paged
     toc: yes
-    number_sections: yes
     theme: cerulean
 
 ---
@@ -50,6 +49,7 @@ gapminder %>%
 ## Exercise 1.4
 
 ```{r, echo = FALSE}
+
 topgdp <- gapminder %>%
   select(country, gdpPercap) %>%
   arrange(desc(gdpPercap)) %>%
@@ -61,8 +61,6 @@ bottomgdp <- gapminder %>%
   top_n(-3, gdpPercap)
 
 full_join(topgdp, bottomgdp)
-
-
   
 ```
 
@@ -81,7 +79,49 @@ gapminder %>%
 
 # Exercise 2: Explore individual variables with dplyr
 
+Let us explore life expectancies in 1997, which was my birth year.
+
 ```{r, echo = FALSE}
+
+Ex2 <- gapminder %>%
+  select(country, year, lifeExp) %>%
+  filter(year == 1997)
+
+Ex2
+
+```
+
+Now let us explore the range of life expectancies in 1997.
+
+```{r, echo = FALSE}
+
+Ex2 %>%
+  select(lifeExp) %>%
+  round(1) %>%
+  range()
+
+```
+
+The minimum life expectancy is 36.1, and the maximum life expectancy is 80.7.
+
+Now let us see what the mean and median life expectancy is.
+
+```{r, echo = FALSE}
+
+mean(Ex2$lifeExp) %>%
+  round(1)
+
+median(Ex2$lifeExp) %>%
+  round(1)
+
+```
+
+The mean life expectancy is 65.0, and the median life expectancy is 69.4. The distribution of the life expectancy in 1997 can be said to be left-tailed since the mean is less than the median; therefore, the bulk of the distribution of life expectancies is closer to the maximum than the minimum value. Let's verify the distribution below:
+
+
+```{r, echo = FALSE}
+
+boxplot(Ex2$lifeExp, data = Ex2, xlab = "Life Expectancy", col = c("blue"), horizontal = TRUE)
 
 ```
 
