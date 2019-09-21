@@ -50,11 +50,19 @@ gapminder %>%
 ## Exercise 1.4
 
 ```{r, echo = FALSE}
-gapminder %>%
+topgdp <- gapminder %>%
   select(country, gdpPercap) %>%
   arrange(desc(gdpPercap)) %>%
   top_n(3, gdpPercap)
-  
+
+bottomgdp <- gapminder %>%
+  select(country, gdpPercap) %>%
+  arrange(desc(gdpPercap)) %>%
+  top_n(-3, gdpPercap)
+
+full_join(topgdp, bottomgdp)
+
+
   
 ```
 
