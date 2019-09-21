@@ -74,7 +74,7 @@ full_join(topgdp, bottomgdp)
 
 ## Exercise 1.5
 
-Let us see how GDP per Capita is related to life expectancy across the globe. Note that GSP per Capita is plotted on a logarithmic scale.
+Let us see how GDP per Capita is related to life expectancy across the globe. Note that GDP per Capita is plotted on a logarithmic scale.
 
 ```{r, echo = FALSE}
 gapminder %>%
@@ -137,7 +137,37 @@ boxplot(Ex2$lifeExp, data = Ex2, xlab = "Life Expectancy", col = c("blue"), hori
 
 # Exercise 3: Explore various plot types
 
+Figures are a powerful visual technique. Let us create some figures to enhance some of what the Gapminder data is telling us. First, let's return to Poland and observe how life expectancy changed over time.
+
 ```{r, echo = FALSE}
 
+  gapminder %>%
+  select(country, year, lifeExp) %>%
+  filter(country == "Poland") %>%
+  ggplot(aes(year, lifeExp)) +
+  geom_point(alpha = 1) + 
+  ylab("Life Expectancy") +
+  xlab("Year") +
+  theme_bw()
+
 ```
+
+It is intereting to note the three distinct trends in life expectancy over time in Poland; it initially increases, followed by a stagnation, which is followed by an increase. This graph leads us ask several potential questions, including "What caused the stagnation in life expectancy in Poland?" and "What caused the life expectancy to increase again?". It may be interesting to note that a series of protests began in 1970 in Poland and continued up through the fall of the Communist Party in 1989.
+
+An important consideration when analyzing the life expectancy is population. Therefore, let us see a time series showing how the population of Poland changed during the same time period.
+
+```{r, echo = FALSE}
+
+  gapminder %>%
+  select(country, year, pop) %>%
+  filter(country == "Poland") %>%
+  ggplot(aes(year, pop)) +
+  geom_line() + 
+  ylab("Population") +
+  xlab("Year") +
+  theme_bw()
+
+```
+
+The population increases at a near-constant rate when the life expectancy stagnates, but the rate that the population is increasing at declines prior to the fall of the Communist Party and stagnates after the fall of the Communist Party. Based on these two graphs, the trends in life expectancy appear to be irrelevent to population. Further analysis is needed to see if life expectancy is related to the timings of different institutions of power in Poland, and another analysis is needed to understand the stagnation of the population that has occurred.
 
