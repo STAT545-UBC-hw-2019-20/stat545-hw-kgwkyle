@@ -58,17 +58,10 @@ Returning to GDP per Capita, let us now look at the countries with the highest t
 
 ```{r, echo = FALSE}
 
-topgdp <- gapminder %>%
+gapminder %>%
   select(country, gdpPercap) %>%
   arrange(desc(gdpPercap)) %>%
-  top_n(3, gdpPercap)
-
-bottomgdp <- gapminder %>%
-  select(country, gdpPercap) %>%
-  arrange(desc(gdpPercap)) %>%
-  top_n(-3, gdpPercap)
-
-full_join(topgdp, bottomgdp)
+  slice(1:3, 1702:1704)
   
 ```
 
