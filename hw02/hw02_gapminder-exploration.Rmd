@@ -48,8 +48,13 @@ gapminder %>%
 Let us switch directions and now look at life expectancies; we shall look at countries that have experienced a decrease in life expectancy.
 
 ```{r, echo = FALSE}
+
 gapminder %>%
-  filter(lifeExp < diff(lifeExp, 1))
+  select(country, year, lifeExp) %>%
+  group_by(country) %>%
+  mutate(lifeExpdiff = c(NA, diff(lifeExp, lag = 1))) %>%
+  filter(lifeExpdiff < 0)
+
 ```
 
 ## Exercise 1.4
