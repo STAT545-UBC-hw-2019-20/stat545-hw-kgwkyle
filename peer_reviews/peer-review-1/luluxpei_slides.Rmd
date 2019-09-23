@@ -1,0 +1,125 @@
+---
+title: "Gapminder Exploration"
+author: "Lulu Pei"
+date: "12/09/2019"
+output: ioslides_presentation
+---
+
+```{r, include=FALSE}
+library(gapminder)
+```
+
+## Presentation Outline
+
+<br>
+
+1. Overview of `gapminder` dataset
+
+2. Subsetting dataset
+
+3. Analysis of population characteristics
+
+4. Conclusion
+
+
+## Gapminder Dataset
+
+The `gapminder` dataset is a data frame consisting of `r nrow(gapminder)` observations and `r ncol(gapminder)` variables of interest. 
+
+```{r, echo = TRUE, comment = NA}
+head(gapminder)
+```
+
+
+***
+The `r ncol(gapminder)` variables of interest are:
+
+```{r, comment = NA}
+colnames(gapminder)
+```
+
+<br>
+
+Continuous Variables | Categorical Variables
+-------------------- | ---------------------
+`lifeExp` | **`country`**
+`pop` | **`continent`**
+`gdpPercap` | **`year`**
+
+
+## Summary Statistics
+
+```{r, comment = NA}
+summary(gapminder)
+```
+
+
+## Subsetting Dataset
+
+**Research Question**: How have `lifeExp`, `pop` and `gdpPercap` variables changed over time in Canada?
+
+For simplicity, consider three time points: 1952, 1977, 2007
+
+Define dataframes `past` to contain all observations from 1952, `mid` to contain all observations from 1977, and `present` to contain all observations from 2007.
+
+```{r}
+past <- subset(gapminder, year==1952)
+mid <- subset(gapminder, year==1977)
+present <- subset(gapminder, year==2007)
+```
+
+## Analysis
+
+Population characteristics of Canada in **1952**:
+
+```{r, comment=NA}
+past[which(past$country=="Canada"), 4:6]
+```
+
+Life expectancy at birth = 68.8 years
+
+Population = 14,785,584 people
+
+GDP per capita = US$11,367
+
+***
+
+<br>
+
+Population characteristics of Canada in **1977**:
+
+```{r, comment=NA}
+mid[which(mid$country=="Canada"), 4:6]
+```
+
+Life expectancy at birth = 74.2 years
+
+Population = 23,796,400 people
+
+GDP per capita = US$22,091
+
+***
+
+<br>
+
+Population characteristics of Canada in **2007**:
+
+```{r, comment=NA}
+present[which(present$country=="Canada"), 4:6]
+```
+
+Life expectancy at birth = 80.7 years
+
+Population = 33,390,141 people
+
+GDP per capita = US$36,319
+
+
+## Conclusion
+
+Population characteristics of Canada have been increasing relatively linearly between the years of 1952 and 2007.
+
+<br>
+
+Population increases by approximately 10 million people every 20 years, while life expectancy increases by roughly 6 years and GDP per capita increases by approximately US$11,000.
+

@@ -1,0 +1,35 @@
+---
+title: "Exploring gapminder"
+author: "Kevin Hu"
+date: "10/09/2019"
+output: ioslides_presentation
+---
+<!--above is YAML header-->
+
+```{r load,warning=FALSE,echo=FALSE}
+library(gapminder)
+```
+## What the 'gapminder' looks like:
+
+```{r,warning=FALSE,echo=FALSE}
+gapminder
+```
+
+## Correlation between GDP and life expectancy:
+```{r,warning=FALSE,echo=FALSE}
+plot(gapminder$lifeExp ~ gapminder$gdpPercap)
+```
+
+## Life expectancy in Afghanistan over time
+```{r,warning=FALSE,echo=FALSE}
+afg <- subset(gapminder,country == "Afghanistan")
+plot(afg$lifeExp~afg$year)
+```
+
+## GDP in Afghanistan over time
+```{r,warning=FALSE,echo=FALSE}
+plot(afg$gdpPercap~afg$year)
+```
+
+
+<!--This is a comment-->
