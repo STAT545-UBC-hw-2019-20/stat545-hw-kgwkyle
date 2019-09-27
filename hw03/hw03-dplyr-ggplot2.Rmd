@@ -1,0 +1,40 @@
+---
+title: 'Assignment 3: dplyr/ggplot2 part 2'
+author: "Kyle Wlodarczyk"
+date: "September 27, 2019"
+output: 
+  html_document:
+    df_print: paged
+    toc: yes
+    theme: cerulean
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(gapminder)
+library(ggridges)
+library(scales)
+library(tibble)
+```
+
+# Task Option 2
+
+```{r, echo = FALSE, warning = FALSE}
+gapminder %>%
+  group_by(continent) %>%
+  select(continent, country, gdpPercap) %>%
+  summarize(gdpPercap_min = min(gdpPercap), gdpPercap_max = max(gdpPercap))
+  
+
+```
+
+# Task Option 5
+
+```{r, echo = FALSE, warning = FALSE}
+gapminder %>% 
+  ggplot(aes(year, lifeExp, group = country, colour = country == "Rwanda")) +
+  geom_line(alpha = 0.5) +
+  scale_colour_discrete("", labels = c("Other", "Rwanda")) +
+  theme_bw()
+```
+
