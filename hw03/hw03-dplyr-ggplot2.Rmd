@@ -21,12 +21,15 @@ library(tibble)
 # Task Option 2
 
 ```{r, echo = FALSE, warning = FALSE}
-Tk2 <- gapminder %>%
+gapminder_r = gapminder
+gapminder_r$gdpPercap = round(gapminder_r$gdpPercap, 1)
+
+Tk2 <- gapminder_r %>%
   group_by(continent) %>%
   select(continent, country, gdpPercap, year) %>%
   summarize(gdpPercap_min = min(gdpPercap), country_min = country[gdpPercap == gdpPercap_min], year_min = year[gdpPercap == gdpPercap_min],
             gdpPercap_max = max(gdpPercap), country_max = country[gdpPercap == gdpPercap_max], year_max = year[gdpPercap == gdpPercap_max])
-Tk2
+DT::datatable(Tk2)
 ```
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -35,11 +38,53 @@ Tk2 %>%
   geom_point(aes(continent, gdpPercap_min, colour = "blue")) +
   geom_point(aes(continent, gdpPercap_max, colour = "red")) +
   ylab("GDP Per Capita") +
+  scale_y_continuous(labels = dollar_format()) +
   xlab("Continent") +
   scale_colour_discrete("", labels = c("Minimum", "Maximum")) + 
   theme_bw()
 ```
 
+# Task Option 3
+
+```{r, echo = FALSE, warning = FALSE}
+Tk3 <- gapminder %>%
+  group_by(continent) %>%
+  select(continent, gdpPercap) %>%
+  arrange(continent) %>%
+  summarize(mu = mean(gdpPercap),
+            sigma = sd(gdpPercap))
+
+Tk3_r = Tk3
+Tk3_r$mu = round(Tk3_r$mu, 1)
+Tk3_r$sigma = round(Tk3_r$sigma, 1)
+
+DT::datatable(Tk3_r)
+```
+
+```{r, echo = FALSE, warning = FALSE}
+gapminder %>%
+  group_by(continent) %>%
+  select(continent, gdpPercap) %>%
+  arrange(continent) %>%
+  ggplot(aes(gdpPercap, continent)) +
+    ggridges::geom_density_ridges() +
+    xlab("GDP Per Capita") +
+    scale_x_continuous(labels = dollar_format()) +
+    ylab("Continent") +
+    theme_bw()
+
+gapminder %>%
+  group_by(continent) %>%
+  select(continent, gdpPercap) %>%
+  arrange(continent) %>%
+  ggplot(aes(continent, gdpPercap)) +
+    geom_boxplot() +
+    ylab("GDP Per Capita") +
+    scale_y_continuous(labels = dollar_format()) +
+    xlab("Continent") +
+    theme_bw()
+
+```
 
 # Task Option 5
 
@@ -49,14 +94,18 @@ Tk5 <- gapminder %>%
   select(continent, year, lifeExp) %>%
   arrange(continent, year) %>%
   summarize(lifeExp_avg = mean(lifeExp))
-Tk5
+
+Tk5_r = Tk5
+Tk5_r$lifeExp_avg = round(Tk5_r$lifeExp_avg, 1)
+
+DT::datatable(Tk5_r)
 ```
 
 
 ```{r, echo = FALSE, warning = FALSE}
 Tk5 %>% 
   ggplot(aes(year, group = continent, lifeExp_avg, colour = continent)) +
-  geom_path(alpha = 0.5) +
+  geom_path() +
   ylab("Average Life Expectancy") +
   xlab("Year") +
   scale_colour_discrete("Continent") +
