@@ -4,6 +4,7 @@ author: "Kyle Wlodarczyk"
 date: "September 27, 2019"
 output: 
   html_document:
+    keep_md: true
     df_print: paged
     toc: yes
     theme: cerulean
@@ -20,13 +21,18 @@ library(tibble)
 # Task Option 2
 
 ```{r, echo = FALSE, warning = FALSE}
-gapminder %>%
+Tk2 <- gapminder %>%
   group_by(continent) %>%
-  select(continent, country, gdpPercap) %>%
-  summarize(gdpPercap_min = min(gdpPercap), gdpPercap_max = max(gdpPercap))
-  
+  select(continent, country, gdpPercap, year) %>%
+  summarize(gdpPercap_min = min(gdpPercap), country_min = country[gdpPercap == gdpPercap_min], year_min = year[gdpPercap == gdpPercap_min],
+            gdpPercap_max = max(gdpPercap), country_max = country[gdpPercap == gdpPercap_max], year_max = year[gdpPercap == gdpPercap_max])
+Tk2
+```
+
+```{r, echo = FALSE, warning = FALSE}
 
 ```
+
 
 # Task Option 5
 
@@ -44,6 +50,9 @@ Tk5
 Tk5 %>% 
   ggplot(aes(year, group = continent, lifeExp_avg, colour = continent)) +
   geom_path(alpha = 0.5) +
+  ylab("Average Life Expectancy") +
+  xlab("Year") +
+  scale_colour_discrete("Continent") +
   theme_bw()
 ```
 
