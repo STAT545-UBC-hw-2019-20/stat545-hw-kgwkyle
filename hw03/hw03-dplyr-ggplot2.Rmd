@@ -20,6 +20,10 @@ library(tibble)
 
 # Task Option 2
 
+
+This task refers to finding the maximum and minimum GDP Per Capita for all continents. In the table below, the maximum and minimum GDP Per Capita was found for each continent, and the country and year that this GDP Per Capita value is related to is also stated in separate columns.
+
+
 ```{r, echo = FALSE, warning = FALSE}
 gapminder_r = gapminder
 gapminder_r$gdpPercap = round(gapminder_r$gdpPercap, 1)
@@ -31,6 +35,10 @@ Tk2 <- gapminder_r %>%
             gdpPercap_max = max(gdpPercap), country_max = country[gdpPercap == gdpPercap_max], year_max = year[gdpPercap == gdpPercap_max])
 DT::datatable(Tk2)
 ```
+
+
+Graphs are powerful methods to communicate data. Let's look at the maximum and minimum GDP Per Capita for each continent, and see (with more ease) how each continent compares to each other.
+
 
 ```{r, echo = FALSE, warning = FALSE}
 Tk2 %>%
@@ -46,6 +54,10 @@ Tk2 %>%
 
 # Task Option 3
 
+
+This task refers to the spread of GDP Per Capita within each continent. In the table below, the average GDP Per Capita (mu) for each continent can be found along with the standard deviation of the GDP Per Capita (sigma) for each continent.
+
+
 ```{r, echo = FALSE, warning = FALSE}
 Tk3 <- gapminder %>%
   group_by(continent) %>%
@@ -60,6 +72,10 @@ Tk3_r$sigma = round(Tk3_r$sigma, 1)
 
 DT::datatable(Tk3_r)
 ```
+
+
+However, to get a better idea of the spread, it is easier to represent the raw data on a few different graphs. The first figure below is a ridge plot showing the data relative to each continent, and the second figure below shows box plots of each continent, which include the minimum, first quantile, median, third quantile, and maximum values for each continent.
+
 
 ```{r, echo = FALSE, warning = FALSE}
 gapminder %>%
@@ -88,6 +104,10 @@ gapminder %>%
 
 # Task Option 5
 
+
+This task refers to the average life expectancy within each continent and shows how it is changing over time. The table below shows how the average life expectancy changes within each continent for each year.
+
+
 ```{r, echo = FALSE, warning = FALSE}
 Tk5 <- gapminder %>%
   group_by(continent, year) %>%
@@ -100,6 +120,9 @@ Tk5_r$lifeExp_avg = round(Tk5_r$lifeExp_avg, 1)
 
 DT::datatable(Tk5_r)
 ```
+
+
+The table above is fairly large, so to better grasp the data, the graph below shows how the average life expectancy has been changing through time.
 
 
 ```{r, echo = FALSE, warning = FALSE}
