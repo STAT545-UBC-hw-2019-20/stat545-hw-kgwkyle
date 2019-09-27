@@ -30,7 +30,14 @@ Tk2
 ```
 
 ```{r, echo = FALSE, warning = FALSE}
-
+Tk2 %>%
+  ggplot() +
+  geom_point(aes(continent, gdpPercap_min, colour = "blue")) +
+  geom_point(aes(continent, gdpPercap_max, colour = "red")) +
+  ylab("GDP Per Capita") +
+  xlab("Continent") +
+  scale_colour_discrete("", labels = c("Minimum", "Maximum")) + 
+  theme_bw()
 ```
 
 

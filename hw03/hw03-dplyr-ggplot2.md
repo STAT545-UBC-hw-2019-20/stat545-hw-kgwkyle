@@ -20,7 +20,7 @@ output:
   </script>
 </div>
 
-
+![](hw03-dplyr-ggplot2_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 
 # Task Option 5
