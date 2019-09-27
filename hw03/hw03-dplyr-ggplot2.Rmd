@@ -31,10 +31,19 @@ gapminder %>%
 # Task Option 5
 
 ```{r, echo = FALSE, warning = FALSE}
-gapminder %>% 
-  ggplot(aes(year, lifeExp, group = country, colour = country == "Rwanda")) +
-  geom_line(alpha = 0.5) +
-  scale_colour_discrete("", labels = c("Other", "Rwanda")) +
+Tk5 <- gapminder %>%
+  group_by(continent, year) %>%
+  select(continent, year, lifeExp) %>%
+  arrange(continent, year) %>%
+  summarize(lifeExp_avg = mean(lifeExp))
+Tk5
+```
+
+
+```{r, echo = FALSE, warning = FALSE}
+Tk5 %>% 
+  ggplot(aes(year, group = continent, lifeExp_avg, colour = continent)) +
+  geom_path(alpha = 0.5) +
   theme_bw()
 ```
 
