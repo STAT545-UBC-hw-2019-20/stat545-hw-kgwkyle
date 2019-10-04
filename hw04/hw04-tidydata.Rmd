@@ -16,11 +16,38 @@ library(gapminder)
 library(tibble)
 ```
 
-# Exercise 1
+# Exercise 1 - Univariate Option 1
+
+Let's take a look at the life expectancy of two countries, such as Poland and Switzerland, for each year. Note that in the table below, the values have been rounded and are given in the unit "years".
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
+gapminder_r = gapminder
+gapminder_r$lifeExp = round(gapminder_r$lifeExp, 1)
 
+Ex1 <- gapminder_r %>%
+  select(country, year, lifeExp) %>%
+  filter(country == "Poland" | country == "Switzerland") %>%
+  pivot_wider(id_cols = year,
+              names_from = country,
+              values_from = lifeExp)
+
+Ex1
 ```
+
+To get a better idea of how the life expectancies of the two countries are changing relative to each other, let's graph them against each other since visuals are powerful communication tools.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+Ex1 %>%
+  ggplot() +
+  geom_point(aes(Poland, Switzerland)) +
+  xlab("Poland") +
+  ylab("Switzerland") +
+  ggtitle("Life Expectancy in Poland and Switzerland") +
+  geom_text(aes(Poland, Switzerland, label = year), hjust = .1, vjust = -.3) +
+  theme_bw()
+```
+
+We can see that the life expectancy in Poland stagnates between 1972 and 1992 while it continues to increase in Switzerland.
 
 # Exercise 2
 
