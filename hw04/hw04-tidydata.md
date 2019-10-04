@@ -28,6 +28,15 @@ To get a better idea of how the life expectancies of the two countries are chang
 
 We can see that the life expectancy in Poland stagnates between 1972 and 1992 while it continues to increase in Switzerland.
 
+Now let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country.
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["lifeExp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Poland","2":"1952","3":"61.3"},{"1":"Poland","2":"1957","3":"65.8"},{"1":"Poland","2":"1962","3":"67.6"},{"1":"Poland","2":"1967","3":"69.6"},{"1":"Poland","2":"1972","3":"70.8"},{"1":"Poland","2":"1977","3":"70.7"},{"1":"Poland","2":"1982","3":"71.3"},{"1":"Poland","2":"1987","3":"71.0"},{"1":"Poland","2":"1992","3":"71.0"},{"1":"Poland","2":"1997","3":"72.8"},{"1":"Poland","2":"2002","3":"74.7"},{"1":"Poland","2":"2007","3":"75.6"},{"1":"Switzerland","2":"1952","3":"69.6"},{"1":"Switzerland","2":"1957","3":"70.6"},{"1":"Switzerland","2":"1962","3":"71.3"},{"1":"Switzerland","2":"1967","3":"72.8"},{"1":"Switzerland","2":"1972","3":"73.8"},{"1":"Switzerland","2":"1977","3":"75.4"},{"1":"Switzerland","2":"1982","3":"76.2"},{"1":"Switzerland","2":"1987","3":"77.4"},{"1":"Switzerland","2":"1992","3":"78.0"},{"1":"Switzerland","2":"1997","3":"79.4"},{"1":"Switzerland","2":"2002","3":"80.6"},{"1":"Switzerland","2":"2007","3":"81.7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+
 # Exercise 2
 
 

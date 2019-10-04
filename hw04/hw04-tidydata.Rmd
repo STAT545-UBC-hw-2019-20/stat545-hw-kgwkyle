@@ -49,6 +49,18 @@ Ex1 %>%
 
 We can see that the life expectancy in Poland stagnates between 1972 and 1992 while it continues to increase in Switzerland.
 
+Now let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+Ex1 %>%
+  pivot_longer(cols = c(Poland, Switzerland),
+               names_to = "country",
+               values_to = "lifeExp") %>%
+  select(country, year, lifeExp) %>%
+  arrange(country)
+```
+
+
 # Exercise 2
 
 ```{r}
