@@ -10,19 +10,51 @@ output:
     theme: cerulean
 ---
 
+Before we begin, let us load some packages that we will potentially be using. 
 
+
+```r
+library(tidyverse)
+library(gapminder)
+library(tibble)
+library(DT)
+```
 
 # Exercise 1 - Univariate Option 1
 
 Let's take a look at the life expectancy of two countries, such as Poland and Switzerland, for each year. Note that in the table below, the values have been rounded and are given in the unit "years".
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["year"],"name":[1],"type":["int"],"align":["right"]},{"label":["Poland"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Switzerland"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"1952","2":"61.3","3":"69.6"},{"1":"1957","2":"65.8","3":"70.6"},{"1":"1962","2":"67.6","3":"71.3"},{"1":"1967","2":"69.6","3":"72.8"},{"1":"1972","2":"70.8","3":"73.8"},{"1":"1977","2":"70.7","3":"75.4"},{"1":"1982","2":"71.3","3":"76.2"},{"1":"1987","2":"71.0","3":"77.4"},{"1":"1992","2":"71.0","3":"78.0"},{"1":"1997","2":"72.8","3":"79.4"},{"1":"2002","2":"74.7","3":"80.6"},{"1":"2007","2":"75.6","3":"81.7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```r
+gapminder_r = gapminder
+gapminder_r$lifeExp = round(gapminder_r$lifeExp, 1)
+
+Ex1 <- gapminder_r %>%
+  select(country, year, lifeExp) %>%
+  filter(country == "Poland" | country == "Switzerland") %>%
+  pivot_wider(id_cols = year,
+              names_from = country,
+              values_from = lifeExp)
+
+datatable(Ex1)
+```
+
+<!--html_preserve--><div id="htmlwidget-1709f129138fe1786849" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1709f129138fe1786849">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],[61.3,65.8,67.6,69.6,70.8,70.7,71.3,71,71,72.8,74.7,75.6],[69.6,70.6,71.3,72.8,73.8,75.4,76.2,77.4,78,79.4,80.6,81.7]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>Poland<\/th>\n      <th>Switzerland<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 To get a better idea of how the life expectancies of the two countries are changing relative to each other, let's graph them against each other since visuals are powerful communication tools.
+
+
+```r
+Ex1 %>%
+  ggplot() +
+  geom_point(aes(Poland, Switzerland)) +
+  xlab("Poland") +
+  ylab("Switzerland") +
+  ggtitle("Life Expectancy in Poland and Switzerland") +
+  geom_text(aes(Poland, Switzerland, label = year), hjust = .1, vjust = -.3) +
+  theme_bw()
+```
 
 ![](hw04-tidydata_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
@@ -30,30 +62,58 @@ We can see that the life expectancy in Poland stagnates between 1972 and 1992 wh
 
 Now let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country followed by year.
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["lifeExp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Poland","2":"1952","3":"61.3"},{"1":"Poland","2":"1957","3":"65.8"},{"1":"Poland","2":"1962","3":"67.6"},{"1":"Poland","2":"1967","3":"69.6"},{"1":"Poland","2":"1972","3":"70.8"},{"1":"Poland","2":"1977","3":"70.7"},{"1":"Poland","2":"1982","3":"71.3"},{"1":"Poland","2":"1987","3":"71.0"},{"1":"Poland","2":"1992","3":"71.0"},{"1":"Poland","2":"1997","3":"72.8"},{"1":"Poland","2":"2002","3":"74.7"},{"1":"Poland","2":"2007","3":"75.6"},{"1":"Switzerland","2":"1952","3":"69.6"},{"1":"Switzerland","2":"1957","3":"70.6"},{"1":"Switzerland","2":"1962","3":"71.3"},{"1":"Switzerland","2":"1967","3":"72.8"},{"1":"Switzerland","2":"1972","3":"73.8"},{"1":"Switzerland","2":"1977","3":"75.4"},{"1":"Switzerland","2":"1982","3":"76.2"},{"1":"Switzerland","2":"1987","3":"77.4"},{"1":"Switzerland","2":"1992","3":"78.0"},{"1":"Switzerland","2":"1997","3":"79.4"},{"1":"Switzerland","2":"2002","3":"80.6"},{"1":"Switzerland","2":"2007","3":"81.7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```r
+Ex1 %>%
+  pivot_longer(cols = c(Poland, Switzerland),
+               names_to = "country",
+               values_to = "lifeExp") %>%
+  select(country, year, lifeExp) %>%
+  arrange(country) %>%
+  datatable()
+```
+
+<!--html_preserve--><div id="htmlwidget-a1014602cc2407c7d3a6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1014602cc2407c7d3a6">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"],["Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland"],[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007,1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],[61.3,65.8,67.6,69.6,70.8,70.7,71.3,71,71,72.8,74.7,75.6,69.6,70.6,71.3,72.8,73.8,75.4,76.2,77.4,78,79.4,80.6,81.7]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>country<\/th>\n      <th>year<\/th>\n      <th>lifeExp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 # Exercise 2 - Multivariate Option 1
 
 After reviewing the life expectancy of Poland and Switzerland for each year, let's see how the GDP per capita changes with life expectancy. Note that in the table below, the values have been rounded and are given in the unit "years" for life expectancy or "dollars" for GDP per capita.
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["year"],"name":[1],"type":["int"],"align":["right"]},{"label":["lifeExp_Poland"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["gdpPercap_Poland"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["lifeExp_Switzerland"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["gdpPercap_Switzerland"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"1952","2":"61.3","3":"4029.33","4":"69.6","5":"14734.23"},{"1":"1957","2":"65.8","3":"4734.25","4":"70.6","5":"17909.49"},{"1":"1962","2":"67.6","3":"5338.75","4":"71.3","5":"20431.09"},{"1":"1967","2":"69.6","3":"6557.15","4":"72.8","5":"22966.14"},{"1":"1972","2":"70.8","3":"8006.51","4":"73.8","5":"27195.11"},{"1":"1977","2":"70.7","3":"9508.14","4":"75.4","5":"26982.29"},{"1":"1982","2":"71.3","3":"8451.53","4":"76.2","5":"28397.72"},{"1":"1987","2":"71.0","3":"9082.35","4":"77.4","5":"30281.70"},{"1":"1992","2":"71.0","3":"7738.88","4":"78.0","5":"31871.53"},{"1":"1997","2":"72.8","3":"10159.58","4":"79.4","5":"32135.32"},{"1":"2002","2":"74.7","3":"12002.24","4":"80.6","5":"34480.96"},{"1":"2007","2":"75.6","3":"15389.92","4":"81.7","5":"37506.42"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```r
+gapminder_r$gdpPercap = round(gapminder_r$gdpPercap, 2)
+
+Ex2 <- gapminder_r %>%
+  select(country, year, lifeExp, gdpPercap) %>%
+  filter(country == "Poland" | country == "Switzerland") %>%
+  pivot_wider(id_cols = year,
+              names_from = country,
+              values_from = c(lifeExp, gdpPercap)) %>%
+  select(year, lifeExp_Poland, gdpPercap_Poland, lifeExp_Switzerland, gdpPercap_Switzerland)
+
+datatable(Ex2)
+```
+
+<!--html_preserve--><div id="htmlwidget-af17daf52f8a35d00de6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af17daf52f8a35d00de6">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],[61.3,65.8,67.6,69.6,70.8,70.7,71.3,71,71,72.8,74.7,75.6],[4029.33,4734.25,5338.75,6557.15,8006.51,9508.14,8451.53,9082.35,7738.88,10159.58,12002.24,15389.92],[69.6,70.6,71.3,72.8,73.8,75.4,76.2,77.4,78,79.4,80.6,81.7],[14734.23,17909.49,20431.09,22966.14,27195.11,26982.29,28397.72,30281.7,31871.53,32135.32,34480.96,37506.42]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>lifeExp_Poland<\/th>\n      <th>gdpPercap_Poland<\/th>\n      <th>lifeExp_Switzerland<\/th>\n      <th>gdpPercap_Switzerland<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Now that we've seen how GDP per capita compares to life expectancy for both Poland and Switzerland, let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country followed by year.
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["int"],"align":["right"]},{"label":["lifeExp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["gdpPercap"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Poland","2":"1952","3":"61.3","4":"4029.33"},{"1":"Poland","2":"1957","3":"65.8","4":"4734.25"},{"1":"Poland","2":"1962","3":"67.6","4":"5338.75"},{"1":"Poland","2":"1967","3":"69.6","4":"6557.15"},{"1":"Poland","2":"1972","3":"70.8","4":"8006.51"},{"1":"Poland","2":"1977","3":"70.7","4":"9508.14"},{"1":"Poland","2":"1982","3":"71.3","4":"8451.53"},{"1":"Poland","2":"1987","3":"71.0","4":"9082.35"},{"1":"Poland","2":"1992","3":"71.0","4":"7738.88"},{"1":"Poland","2":"1997","3":"72.8","4":"10159.58"},{"1":"Poland","2":"2002","3":"74.7","4":"12002.24"},{"1":"Poland","2":"2007","3":"75.6","4":"15389.92"},{"1":"Switzerland","2":"1952","3":"69.6","4":"14734.23"},{"1":"Switzerland","2":"1957","3":"70.6","4":"17909.49"},{"1":"Switzerland","2":"1962","3":"71.3","4":"20431.09"},{"1":"Switzerland","2":"1967","3":"72.8","4":"22966.14"},{"1":"Switzerland","2":"1972","3":"73.8","4":"27195.11"},{"1":"Switzerland","2":"1977","3":"75.4","4":"26982.29"},{"1":"Switzerland","2":"1982","3":"76.2","4":"28397.72"},{"1":"Switzerland","2":"1987","3":"77.4","4":"30281.70"},{"1":"Switzerland","2":"1992","3":"78.0","4":"31871.53"},{"1":"Switzerland","2":"1997","3":"79.4","4":"32135.32"},{"1":"Switzerland","2":"2002","3":"80.6","4":"34480.96"},{"1":"Switzerland","2":"2007","3":"81.7","4":"37506.42"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```r
+Ex2 %>%
+  pivot_longer(cols      = -year, 
+               names_to  = c(".value", "country"),
+               names_sep = "_") %>%
+  select(country, year, lifeExp, gdpPercap) %>%
+  arrange(country) %>%
+  datatable()
+```
+
+<!--html_preserve--><div id="htmlwidget-24ae1f084c8e90ca7384" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-24ae1f084c8e90ca7384">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"],["Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Poland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland","Switzerland"],[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007,1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],[61.3,65.8,67.6,69.6,70.8,70.7,71.3,71,71,72.8,74.7,75.6,69.6,70.6,71.3,72.8,73.8,75.4,76.2,77.4,78,79.4,80.6,81.7],[4029.33,4734.25,5338.75,6557.15,8006.51,9508.14,8451.53,9082.35,7738.88,10159.58,12002.24,15389.92,14734.23,17909.49,20431.09,22966.14,27195.11,26982.29,28397.72,30281.7,31871.53,32135.32,34480.96,37506.42]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>country<\/th>\n      <th>year<\/th>\n      <th>lifeExp<\/th>\n      <th>gdpPercap<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 #Exercise 3

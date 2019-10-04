@@ -10,17 +10,20 @@ output:
     theme: cerulean
 ---
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+Before we begin, let us load some packages that we will potentially be using. 
+
+```{r, message = FALSE, warning = FALSE}
 library(tidyverse)
 library(gapminder)
 library(tibble)
+library(DT)
 ```
 
 # Exercise 1 - Univariate Option 1
 
 Let's take a look at the life expectancy of two countries, such as Poland and Switzerland, for each year. Note that in the table below, the values have been rounded and are given in the unit "years".
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 gapminder_r = gapminder
 gapminder_r$lifeExp = round(gapminder_r$lifeExp, 1)
 
@@ -31,12 +34,12 @@ Ex1 <- gapminder_r %>%
               names_from = country,
               values_from = lifeExp)
 
-Ex1
+datatable(Ex1)
 ```
 
 To get a better idea of how the life expectancies of the two countries are changing relative to each other, let's graph them against each other since visuals are powerful communication tools.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 Ex1 %>%
   ggplot() +
   geom_point(aes(Poland, Switzerland)) +
@@ -51,13 +54,14 @@ We can see that the life expectancy in Poland stagnates between 1972 and 1992 wh
 
 Now let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country followed by year.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 Ex1 %>%
   pivot_longer(cols = c(Poland, Switzerland),
                names_to = "country",
                values_to = "lifeExp") %>%
   select(country, year, lifeExp) %>%
-  arrange(country)
+  arrange(country) %>%
+  datatable()
 ```
 
 
@@ -65,7 +69,7 @@ Ex1 %>%
 
 After reviewing the life expectancy of Poland and Switzerland for each year, let's see how the GDP per capita changes with life expectancy. Note that in the table below, the values have been rounded and are given in the unit "years" for life expectancy or "dollars" for GDP per capita.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 gapminder_r$gdpPercap = round(gapminder_r$gdpPercap, 2)
 
 Ex2 <- gapminder_r %>%
@@ -76,18 +80,19 @@ Ex2 <- gapminder_r %>%
               values_from = c(lifeExp, gdpPercap)) %>%
   select(year, lifeExp_Poland, gdpPercap_Poland, lifeExp_Switzerland, gdpPercap_Switzerland)
 
-Ex2
+datatable(Ex2)
 ```
 
 Now that we've seen how GDP per capita compares to life expectancy for both Poland and Switzerland, let's return the data back to the format found in the gapminder dataset, where observations are listed for each country and arranged by country followed by year.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, message = FALSE, warning = FALSE}
 Ex2 %>%
   pivot_longer(cols      = -year, 
                names_to  = c(".value", "country"),
                names_sep = "_") %>%
   select(country, year, lifeExp, gdpPercap) %>%
-  arrange(country)
+  arrange(country) %>%
+  datatable()
 ```
 
 
