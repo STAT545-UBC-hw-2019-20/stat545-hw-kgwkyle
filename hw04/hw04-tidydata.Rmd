@@ -1,0 +1,36 @@
+---
+title: 'Assignment 4: Tidy Data'
+author: "Kyle Wlodarczyk"
+date: "October 4, 2019"
+output: 
+  html_document:
+    keep_md: true
+    df_print: paged
+    toc: yes
+    theme: cerulean
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(gapminder)
+library(tibble)
+```
+
+# Exercise 1
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+
+```
+
+# Exercise 2
+
+```{r}
+
+```
+
+#Exercise 3
+
+```{r}
+
+```
+
