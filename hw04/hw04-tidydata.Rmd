@@ -10,7 +10,7 @@ output:
     theme: cerulean
 ---
 
-Before we begin, let us load some packages that we will potentially be using. 
+Before we begin, let us load some packages that we will potentially be using. For the first two exercises of this assignment, we will be wrangling part of the gapminder dataset before wrangling an independent dataset for the third exercise.
 
 ```{r, message = FALSE, warning = FALSE}
 library(tidyverse)
@@ -98,7 +98,17 @@ Ex2 %>%
 
 #Exercise 3
 
-```{r}
+Let us now switch gears and look at a wedding guestlist and email addresses.
 
+```{r, message = FALSE, warning = FALSE}
+guest <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+
+## Exercise 3.1
+
+```{r, message = FALSE, warning = FALSE}
+email %>%
+  separate_rows(guest, sep = ", ")
 ```
 
