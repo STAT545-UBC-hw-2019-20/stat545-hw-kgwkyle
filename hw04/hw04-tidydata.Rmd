@@ -107,8 +107,32 @@ email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/maste
 
 ## Exercise 3.1
 
+It is convenient to have all of the information that we need in one tibble instead of referencing two tibbles. Let's add each guest's email address (if available) to the guestlist.
+
 ```{r, message = FALSE, warning = FALSE}
-email %>%
-  separate_rows(guest, sep = ", ")
+email_sep <- email %>%
+  separate_rows(guest, sep = ", ") %>%
+  rename(name = guest)
+guest %>%
+  select(-party) %>%
+  left_join(email_sep, by = name)
+```
+
+## Exercise 3.2
+
+We have more emails than people on the guestlist; the people below are not on the guestlist, yet we still have their emails. 
+
+```{r, message = FALSE, warning = FALSE}
+email_sep %>%
+  anti_join(guest, by = name)
+```
+
+## Exercise 3.3
+
+Let's add those people who we have emails for but aren't on the guestlist (seen in Exercise 3.2 above) to the guestlist.
+
+```{r, message = FALSE, warning = FALSE}
+guest %>%
+  full_join(email_sep, by = name)
 ```
 
