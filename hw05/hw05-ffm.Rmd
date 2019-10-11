@@ -130,3 +130,25 @@ Ex2_dropped %>%
 ```
 
 Now the boxes become tighter from left to right!
+
+# Exercise 3
+
+Let's create a dataset with only data from Poland. Only data about the year, life expectancy, population, and GDP per capita will be kept since the country and continent will be redundant.
+
+```{r, message = FALSE, warning = FALSE}
+Poland <- gapminder %>%
+  filter(country == "Poland") %>%
+  select(year, lifeExp, pop, gdpPercap)
+
+write_csv(Poland, here::here("hw05", "Poland.csv"))
+```
+
+Now that we have created a CSV file in our working directories, let's read in that CSV file so we can see the data!
+
+```{r, message = FALSE, warning = FALSE}
+Poland_file = here::here("hw05", "Poland.csv")
+
+Poland_new <- read_csv(Poland_file)
+view(Poland_new)
+```
+
