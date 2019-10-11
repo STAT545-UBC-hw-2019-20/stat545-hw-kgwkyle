@@ -28,6 +28,8 @@ The here::here package in RStudio projects is a great package that has its prima
 
 # Exercise 2
 
+## Part 1
+
 Let's explore the gapminder dataset. Before beginning, let's verify that a variable within the dataset, such as the continent, is a factor.
 
 ```{r, message = FALSE, warning = FALSE}
@@ -75,7 +77,7 @@ Ex2_filter$continent %>%
 
 Oceania was successfully filtered from the dataset! However, we can see that the number of levels didn't change, and Oceania is still listed as a level; Oceania is now considered an unused level. Let's drop this unused level.
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 Ex2_dropped <- Ex2_filter %>% 
   droplevels()
 
@@ -87,3 +89,44 @@ Ex2_dropped$continent %>%
 ```
 
 We successfully dropped the unused levels, and Oceania is no longer listed as a level.
+
+## Part 2
+
+Now that we have removed Oceania, let's look at the standard deviation of life expectancy in the remaining data and display them in a visual manner using boxplots.
+
+```{r, message = FALSE, warning = FALSE}
+Ex2_P2 <- Ex2_dropped %>%
+  group_by(continent) %>%
+  summarize(sigma = sd(lifeExp))
+
+Ex2_P2_r = Ex2_P2
+Ex2_P2_r$sigma = round(Ex2_P2_r$sigma, 1)
+
+datatable(Ex2_P2_r)
+```
+
+```{r, message = FALSE, warning = FALSE}
+Ex2_dropped %>%
+  select(continent, lifeExp) %>%
+  arrange(continent) %>%
+  ggplot(aes(continent, lifeExp)) +
+    geom_boxplot() +
+    ylab("Life expectancy") +
+    xlab("Continent") +
+    theme_bw()
+```
+
+Let's reorder the boxplots based on the standard deviation.
+
+```{r, message = FALSE, warning = FALSE}
+Ex2_dropped %>%
+  select(continent, lifeExp) %>%
+  arrange(continent) %>%
+  ggplot(aes(fct_relevel(continent, "Asia", "Americas", "Africa", "Europe"), lifeExp)) +
+    geom_boxplot() +
+    ylab("Life expectancy") +
+    xlab("Continent") +
+    theme_bw()
+```
+
+Now the boxes become tighter from left to right!
