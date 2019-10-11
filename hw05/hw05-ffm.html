@@ -202,6 +202,8 @@ summary {
 <li><a href="#part-2">Part 2</a></li>
 </ul></li>
 <li><a href="#exercise-3">Exercise 3</a></li>
+<li><a href="#exercise-4">Exercise 4</a></li>
+<li><a href="#exercise-5">Exercise 5</a></li>
 </ul>
 </div>
 
@@ -215,13 +217,13 @@ library(tibble)
 library(DT)</code></pre>
 <div id="exercise-1" class="section level1">
 <h1>Exercise 1</h1>
-<p>The here::here package in RStudio projects is a great package that has its primary advantages when sharing code with collaborators. When using other methods to specify the directory in your code, the code may malfunction due to the collaborators using different operating systems. This package also replaces the need to specify the working directory in the code, which again would cause the code to malfunction if collaborators are trying to run the code without having the same file path expressed on their computer. Other advantages to the package include the ease in which sub-directories can be managed and even used if the files are opened outside of a project on RStudio.</p>
+<p>The <em>here::here</em> package in RStudio projects is a great package that has its primary advantages when sharing code with collaborators. When using other methods to specify the directory in your code, the code may malfunction due to the collaborators using different operating systems. This package also replaces the need to specify the working directory in the code, which again would cause the code to malfunction if collaborators are trying to run the code without having the same file path expressed on their computer. Other advantages to the package include the ease in which sub-directories can be managed and even used if the files are opened outside of a project on RStudio.</p>
 </div>
 <div id="exercise-2" class="section level1">
 <h1>Exercise 2</h1>
 <div id="part-1" class="section level2">
 <h2>Part 1</h2>
-<p>Let’s explore the gapminder dataset. Before beginning, let’s verify that a variable within the dataset, such as the continent, is a factor.</p>
+<p>Let’s explore the gapminder dataset. Before beginning, let’s verify that a variable within the dataset, such as continent, is a factor.</p>
 <pre class="r"><code>gapminder$continent %&gt;%
   class()</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
@@ -237,8 +239,8 @@ library(DT)</code></pre>
 <pre class="r"><code>gapminder %&gt;%
   count(continent) %&gt;%
   datatable()</code></pre>
-<div id="htmlwidget-96f5eda328d97f9d1b3c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-96f5eda328d97f9d1b3c">{"x":{"filter":"none","data":[["1","2","3","4","5"],["Africa","Americas","Asia","Europe","Oceania"],[624,300,396,360,24]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0a4101562af44f416d61" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a4101562af44f416d61">{"x":{"filter":"none","data":[["1","2","3","4","5"],["Africa","Americas","Asia","Europe","Oceania"],[624,300,396,360,24]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>There are relatively few entries for Oceania, so let’s remove Oceania from the dataset. First, let’s filter through the dataset to remove observations from Oceania.</p>
 <pre class="r"><code>Ex2 &lt;- c(&quot;Africa&quot;, &quot;Americas&quot;, &quot;Asia&quot;, &quot;Europe&quot;)
 Ex2_filter &lt;- gapminder %&gt;%
@@ -247,8 +249,8 @@ Ex2_filter &lt;- gapminder %&gt;%
 Ex2_filter %&gt;%
   count(continent) %&gt;%
   datatable()</code></pre>
-<div id="htmlwidget-1cc5622e672beae9c05d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1cc5622e672beae9c05d">{"x":{"filter":"none","data":[["1","2","3","4"],["Africa","Americas","Asia","Europe"],[624,300,396,360]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d4437368cd6629304333" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4437368cd6629304333">{"x":{"filter":"none","data":[["1","2","3","4"],["Africa","Americas","Asia","Europe"],[624,300,396,360]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>Ex2_filter$continent %&gt;%
   nlevels()</code></pre>
 <pre><code>## [1] 5</code></pre>
@@ -278,8 +280,8 @@ Ex2_P2_r = Ex2_P2
 Ex2_P2_r$sigma = round(Ex2_P2_r$sigma, 1)
 
 datatable(Ex2_P2_r)</code></pre>
-<div id="htmlwidget-1685290b0ec85a54351a" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1685290b0ec85a54351a">{"x":{"filter":"none","data":[["1","2","3","4"],["Africa","Americas","Asia","Europe"],[9.2,9.3,11.9,5.4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>sigma<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a04a5b3deb36f987f2e1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a04a5b3deb36f987f2e1">{"x":{"filter":"none","data":[["1","2","3","4"],["Africa","Americas","Asia","Europe"],[9.2,9.3,11.9,5.4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>sigma<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>Ex2_dropped %&gt;%
   select(continent, lifeExp) %&gt;%
   arrange(continent) %&gt;%
@@ -310,16 +312,22 @@ datatable(Ex2_P2_r)</code></pre>
   select(year, lifeExp, pop, gdpPercap)
 
 write_csv(Poland, here::here(&quot;hw05&quot;, &quot;Poland.csv&quot;))</code></pre>
-<p>Now that we have created a CSV file in our working directories, let’s read in that csv file so we can see the data!</p>
+<p>Now that we have created a CSV file in our working directories, let’s read in that CSV file so we can see the data!</p>
 <pre class="r"><code>Poland_file = here::here(&quot;hw05&quot;, &quot;Poland.csv&quot;)
 
-read_csv(Poland_file)</code></pre>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lifeExp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["pop"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["gdpPercap"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1952","2":"61.310","3":"25730551","4":"4029.330"},{"1":"1957","2":"65.770","3":"28235346","4":"4734.253"},{"1":"1962","2":"67.640","3":"30329617","4":"5338.752"},{"1":"1967","2":"69.610","3":"31785378","4":"6557.153"},{"1":"1972","2":"70.850","3":"33039545","4":"8006.507"},{"1":"1977","2":"70.670","3":"34621254","4":"9508.141"},{"1":"1982","2":"71.320","3":"36227381","4":"8451.531"},{"1":"1987","2":"70.980","3":"37740710","4":"9082.351"},{"1":"1992","2":"70.990","3":"38370697","4":"7738.881"},{"1":"1997","2":"72.750","3":"38654957","4":"10159.584"},{"1":"2002","2":"74.670","3":"38625976","4":"12002.239"},{"1":"2007","2":"75.563","3":"38518241","4":"15389.925"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+Poland_new &lt;- read_csv(Poland_file)
+datatable(Poland_new)</code></pre>
+<div id="htmlwidget-64e99f0a43db362bb3cb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64e99f0a43db362bb3cb">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12"],[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],[61.31,65.77,67.64,69.61,70.85,70.67,71.32,70.98,70.99,72.75,74.67,75.563],[25730551,28235346,30329617,31785378,33039545,34621254,36227381,37740710,38370697,38654957,38625976,38518241],[4029.329699,4734.253019,5338.752143,6557.152776,8006.506993,9508.141454,8451.531004,9082.351172,7738.881247,10159.58368,12002.23908,15389.92468]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>lifeExp<\/th>\n      <th>pop<\/th>\n      <th>gdpPercap<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
-<pre class="r"><code>view(Poland_file)</code></pre>
+<div id="exercise-4" class="section level1">
+<h1>Exercise 4</h1>
+<p>Many figures were created while completing previous assignments. However, in light of recent developments, let’s go back to Assignment# and recreate the figure from Task#, showing both the original figure with the new figure side-by-side.</p>
+<p>REFLECTIONS ON DIFFERENCES—-</p>
+</div>
+<div id="exercise-5" class="section level1">
+<h1>Exercise 5</h1>
+<p>Let’s save the new plot that we just made in <em>Exercise 4</em> as a separate file.</p>
 </div>
 
 

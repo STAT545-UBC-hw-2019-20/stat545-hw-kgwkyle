@@ -24,13 +24,13 @@ library(DT)
 
 # Exercise 1 
 
-The here::here package in RStudio projects is a great package that has its primary advantages when sharing code with collaborators. When using other methods to specify the directory in your code, the code may malfunction due to the collaborators using different operating systems. This package also replaces the need to specify the working directory in the code, which again would cause the code to malfunction if collaborators are trying to run the code without having the same file path expressed on their computer. Other advantages to the package include the ease in which sub-directories can be managed and even used if the files are opened outside of a project on RStudio. 
+The *here::here* package in RStudio projects is a great package that has its primary advantages when sharing code with collaborators. When using other methods to specify the directory in your code, the code may malfunction due to the collaborators using different operating systems. This package also replaces the need to specify the working directory in the code, which again would cause the code to malfunction if collaborators are trying to run the code without having the same file path expressed on their computer. Other advantages to the package include the ease in which sub-directories can be managed and even used if the files are opened outside of a project on RStudio. 
 
 # Exercise 2
 
 ## Part 1
 
-Let's explore the gapminder dataset. Before beginning, let's verify that a variable within the dataset, such as the continent, is a factor.
+Let's explore the gapminder dataset. Before beginning, let's verify that a variable within the dataset, such as continent, is a factor.
 
 ```{r, message = FALSE, warning = FALSE}
 gapminder$continent %>%
@@ -149,6 +149,24 @@ Now that we have created a CSV file in our working directories, let's read in th
 Poland_file = here::here("hw05", "Poland.csv")
 
 Poland_new <- read_csv(Poland_file)
-view(Poland_new)
+datatable(Poland_new)
+```
+
+# Exercise 4
+
+Many figures were created while completing previous assignments. However, in light of recent developments, let's go back to Assignment# and recreate the figure from Task#, showing both the original figure with the new figure side-by-side.
+
+```{r, message = FALSE, warning = FALSE}
+
+```
+
+REFLECTIONS ON DIFFERENCES----
+
+# Exercise 5
+
+Let's save the new plot that we just made in *Exercise 4* as a separate file.
+
+```{r, message = FALSE, warning = FALSE}
+
 ```
 
