@@ -1,0 +1,29 @@
+---
+title: 'Assignment 5: Factor and Figure Management'
+author: "Kyle Wlodarczyk"
+date: "October 11, 2019"
+output: 
+  html_document:
+    keep_md: true
+    df_print: paged
+    toc: yes
+    theme: cerulean
+---
+
+Before we begin, let us load some packages that we will potentially be using. For this assignment, we will be wrangling part of the gapminder dataset.
+
+```{r, message = FALSE, warning = FALSE}
+library(gapminder)
+library(tidyverse)
+library(dplyr)
+library(forcats)
+library(ggplot2)
+library(tibble)
+library(DT)
+```
+
+# Exercise 1 
+
+The here::here package in RStudio projects is a great package that has its primary advantages when sharing code with collaborators. When using other methods to specify the directory in your code, the code may malfunction due to the collaborators using different operating systems. This package also replaces the need to specify the working directory in the code, which again would cause the code to malfunction if collaborators are trying to run the code without having the same file path expressed on their computer. Other advantages to the package include the ease in which sub-directories can be managed and even used if the files are opened outside of a project on RStudio. 
+
+# Exercise 2
