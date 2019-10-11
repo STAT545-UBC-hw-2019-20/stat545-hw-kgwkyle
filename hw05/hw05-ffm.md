@@ -12,7 +12,8 @@ output:
 
 Before we begin, let us load some packages that we will potentially be using. For this assignment, we will be wrangling part of the gapminder dataset.
 
-```{r, message = FALSE, warning = FALSE}
+
+```r
 library(gapminder)
 library(tidyverse)
 library(dplyr)
@@ -30,34 +31,55 @@ The here::here package in RStudio projects is a great package that has its prima
 
 Let's explore the gapminder dataset. Before beginning, let's verify that a variable within the dataset, such as the continent, is a factor.
 
-```{r, message = FALSE, warning = FALSE}
+
+```r
 gapminder$continent %>%
   class()
+```
+
+```
+## [1] "factor"
 ```
 
 The variable continent is indeed a factor.
 
 Let's look at how many levels there are within this factor, and let's identify the different levels.
 
-```{r, message = FALSE, warning = FALSE}
+
+```r
 gapminder$continent %>%
   nlevels()
+```
 
+```
+## [1] 5
+```
+
+```r
 gapminder$continent %>%
   levels()
 ```
 
+```
+## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
+```
+
 There are 5 levels, which are listed above; the number of entries for each continent can be found in the table below.
 
-```{r, message = FALSE, warning = FALSE}
+
+```r
 gapminder %>%
   count(continent) %>%
   datatable()
 ```
 
+<!--html_preserve--><div id="htmlwidget-4f9c400f05251cc515e8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4f9c400f05251cc515e8">{"x":{"filter":"none","data":[["1","2","3","4","5"],["Africa","Americas","Asia","Europe","Oceania"],[624,300,396,360,24]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
 There are relatively few entries for Oceania, so let's remove Oceania from the dataset. First, let's filter through the dataset to remove observations from Oceania.
 
-```{r, message = FALSE, warning = FALSE}
+
+```r
 Ex2 <- c("Africa", "Americas", "Asia", "Europe")
 Ex2_filter <- gapminder %>%
   filter(continent %in% Ex2)
@@ -65,25 +87,51 @@ Ex2_filter <- gapminder %>%
 Ex2_filter %>%
   count(continent) %>%
   datatable()
+```
 
+<!--html_preserve--><div id="htmlwidget-7a7aabee141d045dc3cc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a7aabee141d045dc3cc">{"x":{"filter":"none","data":[["1","2","3","4"],["Africa","Americas","Asia","Europe"],[624,300,396,360]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>continent<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
 Ex2_filter$continent %>%
   nlevels()
+```
 
+```
+## [1] 5
+```
+
+```r
 Ex2_filter$continent %>%
   levels()
 ```
 
+```
+## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
+```
+
 Oceania was successfully filtered from the dataset! However, we can see that the number of levels didn't change, and Oceania is still listed as a level; Oceania is now considered an unused level. Let's drop this unused level.
 
-```{r}
+
+```r
 Ex2_dropped <- Ex2_filter %>% 
   droplevels()
 
 Ex2_dropped$continent %>%
   nlevels()
+```
 
+```
+## [1] 4
+```
+
+```r
 Ex2_dropped$continent %>%
   levels()
+```
+
+```
+## [1] "Africa"   "Americas" "Asia"     "Europe"
 ```
 
 We successfully dropped the unused levels, and Oceania is no longer listed as a level.
