@@ -20,6 +20,7 @@ library(forcats)
 library(ggplot2)
 library(tibble)
 library(DT)
+library(plotly)
 ```
 
 # Exercise 1 
@@ -157,7 +158,35 @@ datatable(Poland_new)
 Many figures were created while completing previous assignments. However, in light of recent developments, let's go back to Assignment# and recreate the figure from Task#, showing both the original figure with the new figure side-by-side.
 
 ```{r, message = FALSE, warning = FALSE}
+Ex3.3_o <- gapminder %>%
+  group_by(continent) %>%
+  select(continent, gdpPercap) %>%
+  arrange(continent) %>%
+  ggplot(aes(continent, gdpPercap)) +
+    geom_boxplot() +
+    ylab("GDP Per Capita") +
+    scale_y_continuous(labels = dollar_format()) +
+    xlab("Continent") +
+    theme_bw()
 
+Ex3.3_n <- gapminder %>%
+  group_by(continent) %>%
+  select(continent, gdpPercap) %>%
+  arrange(continent) %>%
+  ggplot(aes(continent, gdpPercap)) +
+    geom_boxplot() +
+    ylab("GDP Per Capita") +
+    scale_y_continuous(labels = dollar_format()) +
+    xlab("Continent") +
+    theme_bw() +
+    theme(panel.border = element_blank(), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), axis.line = element_line(colour = "grey"))
+
+Ex3.3_o
+
+Ex3.3_n
+
+ggplotly(Ex3.3_n)
 ```
 
 REFLECTIONS ON DIFFERENCES----
