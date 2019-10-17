@@ -21,6 +21,8 @@ library(ggplot2)
 library(tibble)
 library(DT)
 library(plotly)
+library(gridExtra)
+library(scales)
 ```
 
 # Exercise 1 
@@ -175,21 +177,21 @@ Ex3.3_n <- gapminder %>%
   arrange(continent) %>%
   ggplot(aes(continent, gdpPercap)) +
     geom_boxplot() +
-    ylab("GDP Per Capita") +
     scale_y_continuous(labels = dollar_format()) +
-    xlab("Continent") +
+    ggtitle("GDP per capita by continent") +
+    xlab("") +
+    ylab("") +
     theme_bw() +
-    theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-panel.grid.minor = element_blank(), axis.line = element_line(colour = "grey"))
+    theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "grey"))
+
+Ex3.3_n2 <- ggplotly(Ex3.3_n)
 
 Ex3.3_o
+Ex3.3_n2
 
-Ex3.3_n
-
-ggplotly(Ex3.3_n)
 ```
 
-REFLECTIONS ON DIFFERENCES----
+The most notable difference with the second figure is that the second figure is interactive; it also includes a title , which incorporates both axes, which would be redundant to label. The distracting gridlines (both major and minor) have been removed; the top and right axes borders have been removed and have been lightened to grey for minimal distraction.
 
 # Exercise 5
 
