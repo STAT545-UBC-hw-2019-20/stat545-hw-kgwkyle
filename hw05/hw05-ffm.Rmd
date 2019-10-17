@@ -188,7 +188,6 @@ Ex3.3_n2 <- ggplotly(Ex3.3_n)
 
 Ex3.3_o
 Ex3.3_n2
-
 ```
 
 The most notable difference with the second figure is that the second figure is interactive; it also includes a title , which incorporates both axes, which would be redundant to label. The distracting gridlines (both major and minor) have been removed; the top and right axes borders have been removed and have been lightened to grey for minimal distraction.
