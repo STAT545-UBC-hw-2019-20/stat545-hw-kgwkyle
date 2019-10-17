@@ -155,6 +155,24 @@ Poland_new <- read_csv(Poland_file)
 datatable(Poland_new)
 ```
 
+The CSV file was successfully reloaded and survived the "round trip" of writing to file and reading back in that same file! Let's play around with factor levels. First, let's identify which variables are factors.
+
+```{r}
+Poland$year %>%
+  class()
+
+Poland$lifeExp %>%
+  class()
+
+Poland$pop %>%
+  class()
+
+Poland$gdpPercap %>%
+  class()
+```
+
+There are no factors in this dataset, which makes sense seeing that there are no categorical data here; the categorical data from the original dataset were removed due to them being redundent in this dataset (the variables _country_ and _continent_ will always be Poland and Europe, respectively).
+
 # Exercise 4
 
 Many figures were created while completing previous assignments. However, in light of recent developments, let's go back to Assignment 3 and recreate the figure from Task 3, showing both the original figure with the new figure side-by-side.
