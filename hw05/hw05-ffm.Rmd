@@ -190,7 +190,7 @@ Ex3.3_n <- gapminder %>%
 grid.arrange(Ex3.3_o, Ex3.3_n, nrow = 1)
 ```
 
-There are some notable differences in the second figure. It includes a title , which incorporates both axes and eliminates the need to label them, which would be redundant. The distracting gridlines (both major and minor) have been removed; the top and right axes borders have been removed and have been lightened to grey for minimal distraction. Now, for even more improvement, et's make the second figure interactive to easily see all the values!
+There are some notable differences in the second figure. It includes a title , which incorporates both axes and eliminates the need to label them, which would be redundant. The distracting gridlines (both major and minor) have been removed; the top and right axes borders have been removed and have been lightened to grey for minimal distraction. Now, for even more improvement, let's make the second figure interactive to easily see all the values!
 
 ```{r, message = FALSE, warning = FALSE}
 
@@ -201,9 +201,12 @@ Ex3.3_n2
 
 # Exercise 5
 
-Let's save the new plot that we just made in *Exercise 4* as a separate file.
+Let's save the improved plot that we just made in *Exercise 4* (the figure on the right side) as a separate file.
 
 ```{r, message = FALSE, warning = FALSE}
-
+ggsave(plot = Ex3.3_n, "gdp_by_continent.png")
 ```
 
+Now let's embed that saved figure in the report below!
+
+![](C:\Users\kylew\OneDrive\Documents\Graduate School\UBC\STAT 545\stat545-hw-kgwkyle\hw05\gdp_by_continent.png)
